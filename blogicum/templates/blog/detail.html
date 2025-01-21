@@ -1,7 +1,5 @@
 {% extends "base.html" %}
 {% block content %}
-    <main>
-      <div class="container py-5">
         <article>
           <ul>
             <li>
@@ -15,9 +13,8 @@
             </li>
           </ul>         
           <p>
-            {{ post.text }}
+            {{ post.text|linebreaks }}
           </p>          
         </article>                
       </div>
-    </main>
 {% endblock %}

@@ -1,5 +1,6 @@
-from django.template import loader
 from django.http import HttpResponse
+
+from django.template import loader
 
 
 posts = [
@@ -46,28 +47,29 @@ posts = [
 ]
 
 
+POST_IDS = {post['id']: post for post in posts}
+
+
 def index(request):
-    template = loader.get_template('blog/index.html')
     context = {'posts': reversed(posts)}
-    return HttpResponse(template.render(context, request))
+    return HttpResponse(loader.get_template('blog/index.html'
+                                            ).render(context, request))
 
 
 def post_detail(request, id):
-    post_detail = next((p for p in posts if p['id'] == id), None)
-    template = loader.get_template('blog/detail.html')
+    post_detail = POST_IDS.get(id)
     context = {'post': post_detail}
-    return HttpResponse(template.render(context, request))
+    return HttpResponse(loader.get_template('blog/detail.html'
+                                            ).render(context, request))
 
 
 def category_posts(request, category_slug):
-    category_posts = [p for p in posts if p['category'] == category_slug]
-    template = loader.get_template('blog/category.html')
-    context = {'category': category_slug, 'posts': category_posts}
-    return HttpResponse(template.render(context, request))
+    context = {'category': category_slug, 'posts': posts}
+    return HttpResponse(loader.get_template('blog/category.html'
+                                            ).render(context, request))
 
 
 def not_my_day_blog(request):
-    not_my_day_post = [p for p in posts if p['category'] == 'not-my-day']
-    template = loader.get_template('blog/not_my_day_blog.html')
-    context = {'not-my-day': not_my_day_post}
-    return HttpResponse(template.render(context, request))
+    context = {'not-my-day': posts}
+    return HttpResponse(loader.get_template('blog/not_my_day_blog.html'
+                                            ).render(context, request))

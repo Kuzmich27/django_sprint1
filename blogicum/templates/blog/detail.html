@@ -9,7 +9,7 @@
               <p>Дата: {{ post.date }}</p>
             </li>
             <li>
-              Категория: <a href="{% url 'blog:not_my_day' %}">{{ post.category }}</a></p>
+              Категория: <a href="{% url 'blog:category_posts' category_slug=post.category %}">{{ post.category }}</a></p> 
             </li>
           </ul>         
           <p>

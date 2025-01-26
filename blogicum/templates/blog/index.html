@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
         <h1>Лента записей</h1>                        
-        <!-- Перебираем в цикле все посты -->
         <hr>
         {% for post in posts %}
         <article>
@@ -13,10 +12,9 @@
               <p>Дата: {{ post.date }} </p>
             </li>
             <li>
-            <p>Категория: <a href="{% url 'blog:not_my_day' %}">{{ post.category }}</a></p>
+              Категория: <a href="{% url 'blog:category_posts' category_slug=post.category %}">{{ post.category }}</a></p> 
             </li>
           </ul>          
-          <!-- Первые 10 слов -->
           <p>{{ post.text|truncatewords:10 }}</p>
           <a href="{% url 'blog:post_detail' post.id %}">Читать полный текст</a>
         </article>

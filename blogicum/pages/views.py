@@ -1,15 +1,10 @@
 from django.http import HttpResponse
-
-from django.template import loader
+from django.shortcuts import render
 
 
 def about(request):
-    template = loader.get_template('pages/about.html')
-    context = {}
-    return HttpResponse(template.render(context, request))
+    return render(request, 'pages/about.html', {})
 
 
 def rules(request):
-    template = loader.get_template('pages/rules.html')
-    context = {}
-    return HttpResponse(template.render(context, request))
+    return render(request, 'pages/rules.html', {})

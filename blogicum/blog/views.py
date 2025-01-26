@@ -1,6 +1,5 @@
-from django.http import HttpResponse
-
-from django.template import loader
+from django.http import HttpResponse, Http404
+from django.shortcuts import render
 
 
 posts = [
@@ -52,24 +51,22 @@ POST_IDS = {post['id']: post for post in posts}
 
 def index(request):
     context = {'posts': reversed(posts)}
-    return HttpResponse(loader.get_template('blog/index.html'
-                                            ).render(context, request))
+    return render(request, 'blog/index.html', context)                                
 
 
 def post_detail(request, id):
     post_detail = POST_IDS.get(id)
+    if post_detail is None:
+        raise Http404('Post not found')
     context = {'post': post_detail}
-    return HttpResponse(loader.get_template('blog/detail.html'
-                                            ).render(context, request))
+    return render(request, 'blog/detail.html', context)
 
 
-def category_posts(request, category_slug):
+def category_post(request, category_slug):
     context = {'category': category_slug, 'posts': posts}
-    return HttpResponse(loader.get_template('blog/category.html'
-                                            ).render(context, request))
+    return render(request, 'blog/category.html', context)
 
 
 def not_my_day_blog(request):
     context = {'not-my-day': posts}
-    return HttpResponse(loader.get_template('blog/not_my_day_blog.html'
-                                            ).render(context, request))
+    return render(request, 'blog/not_my_day_blog.html', context)

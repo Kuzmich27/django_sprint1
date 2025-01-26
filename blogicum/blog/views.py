@@ -1,4 +1,4 @@
-from django.http import HttpResponse, Http404
+from django.http import  Http404
 from django.shortcuts import render
 
 
@@ -51,7 +51,7 @@ POST_IDS = {post['id']: post for post in posts}
 
 def index(request):
     context = {'posts': reversed(posts)}
-    return render(request, 'blog/index.html', context)                                
+    return render(request, 'blog/index.html', context)                
 
 
 def post_detail(request, id):
